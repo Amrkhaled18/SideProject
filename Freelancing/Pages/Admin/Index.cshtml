@@ -1,0 +1,250 @@
+@page
+@model Freelancing.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="bg-light rounded p-4 border-start border-primary border-4">
+            <h1 class="display-5 fw-bold text-dark mb-2">
+                <i class="fas fa-chart-line text-primary me-3"></i>
+                Business Analytics
+            </h1>
+            <p class="text-muted mb-0 fs-5">Real-time insights into your freelancing success</p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-5">
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="text-muted mb-2 fw-semibold">Total Services</h6>
+                        <h2 class="fw-bold text-primary mb-1">@Model.TotalServices</h2>
+                        <span class="badge bg-primary bg-opacity-10 text-primary">
+                            <i class="fas fa-arrow-up me-1"></i>Active
+                        </span>
+                    </div>
+                    <div class="bg-primary bg-opacity-10 rounded p-3">
+                        <i class="fas fa-briefcase fa-2x text-primary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="text-muted mb-2 fw-semibold">Client Base</h6>
+                        <h2 class="fw-bold text-success mb-1">@Model.TotalUsers</h2>
+                        <span class="badge bg-success bg-opacity-10 text-success">
+                            <i class="fas fa-users me-1"></i>Customers
+                        </span>
+                    </div>
+                    <div class="bg-success bg-opacity-10 rounded p-3">
+                        <i class="fas fa-users fa-2x text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="text-muted mb-2 fw-semibold">Payment Requests</h6>
+                        <h2 class="fw-bold text-warning mb-1">@Model.TotalPayments</h2>
+                        <span class="badge bg-warning bg-opacity-10 text-warning">
+                            <i class="fas fa-clock me-1"></i>Pending
+                        </span>
+                    </div>
+                    <div class="bg-warning bg-opacity-10 rounded p-3">
+                        <i class="fas fa-credit-card fa-2x text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="text-muted mb-2 fw-semibold">Total Revenue</h6>
+                        <h2 class="fw-bold text-info mb-1">$@Model.TotalRevenue</h2>
+                        <span class="badge bg-info bg-opacity-10 text-info">
+                            <i class="fas fa-chart-up me-1"></i>Earned
+                        </span>
+                    </div>
+                    <div class="bg-info bg-opacity-10 rounded p-3">
+                        <i class="fas fa-dollar-sign fa-2x text-info"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card border-0 shadow">
+            <div class="card-header bg-primary text-white py-3">
+                <h4 class="mb-0 fw-bold">
+                    <i class="fas fa-rocket me-3"></i>
+                    Quick Actions
+                </h4>
+            </div>
+            <div class="card-body py-4">
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6">
+                        <a href="/Admin/Services/Create" class="btn btn-primary btn-lg w-100 py-3">
+                            <i class="fas fa-plus fa-2x mb-2 d-block"></i>
+                            <span class="fw-semibold">Add New Service</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <a href="/Admin/Services" class="btn btn-outline-primary btn-lg w-100 py-3">
+                            <i class="fas fa-cogs fa-2x mb-2 d-block"></i>
+                            <span class="fw-semibold">Manage Services</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <a href="/Admin/Payments" class="btn btn-outline-success btn-lg w-100 py-3">
+                            <i class="fas fa-credit-card fa-2x mb-2 d-block"></i>
+                            <span class="fw-semibold">View Payments</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <a href="/Admin/Users" class="btn btn-outline-info btn-lg w-100 py-3">
+                            <i class="fas fa-users fa-2x mb-2 d-block"></i>
+                            <span class="fw-semibold">Manage Users</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow h-100">
+            <div class="card-header bg-transparent border-0 py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-credit-card text-success me-3"></i>
+                        Recent Payment Requests
+                    </h5>
+                    <a href="/Admin/Payments" class="btn btn-outline-primary btn-sm">
+                        View All
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                @if (Model.RecentPayments != null && Model.RecentPayments.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Service</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var payment in Model.RecentPayments)
+                                {
+                                    <tr>
+                                        <td>@payment.User.Name</td>
+                                        <td>@payment.Service.Name</td>
+                                        <td class="fw-bold text-success">$@payment.Amount</td>
+                                        <td>
+                                            <span class="badge bg-@(payment.Status == "Completed" ? "success" : "warning")">
+                                                @payment.Status
+                                            </span>
+                                        </td>
+                                        <td>@payment.PaymentDate.ToString("MMM dd")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-4">
+                        <i class="fas fa-credit-card fa-3x text-muted mb-3"></i>
+                        <h6 class="text-muted">No payment requests yet</h6>
+                        <p class="text-muted">Payment requests will appear here when customers start ordering services.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card border-0 shadow h-100">
+            <div class="card-header bg-transparent border-0 py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0 fw-bold">
+                        <i class="fas fa-briefcase text-primary me-2"></i>
+                        Your Services
+                    </h6>
+                    <a href="/Admin/Services" class="btn btn-outline-primary btn-sm">
+                        Manage
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                @if (Model.Services != null && Model.Services.Any())
+                {
+                    @foreach (var service in Model.Services)
+                    {
+                        <div class="d-flex justify-content-between align-items-center p-3 mb-3 bg-light rounded">
+                            <div>
+                                <h6 class="mb-1 fw-semibold">@service.Name</h6>
+                                <small class="text-muted">@service.Type</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-success">$@service.Price</div>
+                                <span class="badge bg-@(service.IsActive ? "success" : "secondary") mt-1">
+                                    @(service.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </div>
+                        </div>
+                    }
+                    
+                    <div class="mt-4 pt-3 border-top">
+                        <div class="text-center">
+                            <div class="fw-bold text-primary fs-4">@Model.Services.Count(s => s.IsActive)</div>
+                            <small class="text-muted">Active Services</small>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-4">
+                        <i class="fas fa-briefcase fa-3x text-muted mb-3"></i>
+                        <h6 class="text-muted">No services created yet</h6>
+                        <a href="/Admin/Services/Create" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>Create First Service
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+@page
+@model Freelancing.Pages.Admin.Payments.UpdateStatusModel
+@{
+    ViewData["Title"] = "Update Payment Status";
+}
+
+<h1>Update Payment Status</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Payment Request #@Model.Payment.Id</h5>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title">Payment Information</h6>
+                <dl class="row">
+                    <dt class="col-sm-4">Customer:</dt>
+                    <dd class="col-sm-8">@Model.Payment.User.Name</dd>
+                    
+                    <dt class="col-sm-4">Service:</dt>
+                    <dd class="col-sm-8">@Model.Payment.Service.Name</dd>
+                    
+                    <dt class="col-sm-4">Amount:</dt>
+                    <dd class="col-sm-8"><span class="h5 text-success">$@Model.Payment.Amount</span></dd>
+                    
+                    <dt class="col-sm-4">Current Status:</dt>
+                    <dd class="col-sm-8">
+                        <span class="badge @(Model.Payment.Status == "Completed" ? "bg-success" : Model.Payment.Status == "Pending" ? "bg-warning" : "bg-danger")">
+                            @Model.Payment.Status
+                        </span>
+                    </dd>
+                    
+                    <dt class="col-sm-4">Request Date:</dt>
+                    <dd class="col-sm-8">@Model.Payment.PaymentDate.ToString("MMMM dd, yyyy 'at' h:mm tt")</dd>
+                </dl>
+                
+                <hr>
+                
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="Input.Status" class="form-label">New Status</label>
+                        <select asp-for="Input.Status" class="form-select">
+                            <option value="Pending">Pending</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Failed">Failed</option>
+                            <option value="Refunded">Refunded</option>
+                        </select>
+                        <span asp-validation-for="Input.Status" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="Input.Notes" class="form-label">Notes (Optional)</label>
+                        <textarea asp-for="Input.Notes" class="form-control" rows="3" 
+                                 placeholder="Add any notes about this status change..."></textarea>
+                        <span asp-validation-for="Input.Notes" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex">
+                        <button type="submit" class="btn btn-primary">Update Status</button>
+                        <a asp-page="./Details" asp-route-id="@Model.Payment.Id" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-title">Status Guidelines</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <span class="badge bg-warning">Pending</span><br>
+                        <small class="text-muted">Payment request received, awaiting processing</small>
+                    </li>
+                    <li class="mb-2">
+                        <span class="badge bg-info">Processing</span><br>
+                        <small class="text-muted">Payment is being processed</small>
+                    </li>
+                    <li class="mb-2">
+                        <span class="badge bg-success">Completed</span><br>
+                        <small class="text-muted">Payment successfully processed</small>
+                    </li>
+                    <li class="mb-2">
+                        <span class="badge bg-danger">Failed</span><br>
+                        <small class="text-muted">Payment processing failed</small>
+                    </li>
+                    <li class="mb-2">
+                        <span class="badge bg-secondary">Refunded</span><br>
+                        <small class="text-muted">Payment was refunded to customer</small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6 class="card-title">Customer Contact</h6>
+                <p class="mb-2"><strong>Email:</strong><br>
+                <a href="mailto:@Model.Payment.User.Email">@Model.Payment.User.Email</a></p>
+                <p class="mb-0"><strong>Phone:</strong><br>
+                <a href="tel:@Model.Payment.User.PhoneNumber">@Model.Payment.User.PhoneNumber</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

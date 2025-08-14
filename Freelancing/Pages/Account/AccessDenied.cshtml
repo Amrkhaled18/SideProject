@@ -1,0 +1,23 @@
+@page
+@model Freelancing.Pages.Account.AccessDeniedModel
+@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="text-center">
+            <div class="alert alert-danger">
+                <h1 class="display-4">??</h1>
+                <h3>Access Denied</h3>
+                <p class="lead">You don't have permission to access this area.</p>
+                <p>This section is restricted to administrators only.</p>
+            </div>
+            
+            <div class="mt-4">
+                <a asp-page="/Account/Login" class="btn btn-primary">Login as Admin</a>
+                <a asp-page="/Index" class="btn btn-outline-secondary">Return to Home</a>
+            </div>
+        </div>
+    </div>
+</div>

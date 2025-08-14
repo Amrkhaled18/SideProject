@@ -1,0 +1,119 @@
+@page
+@model Freelancing.Pages.Services.RequestPaymentModel
+@{
+    ViewData["Title"] = $"Request Payment - {Model.Service?.Name}";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h1>Request Service Payment</h1>
+        <p class="lead">Complete the form below to request this service and initiate the payment process.</p>
+        
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="alert alert-success">
+                <h5>Success!</h5>
+                @Model.Message
+            </div>
+        }
+
+        @if (Model.Service != null)
+        {
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Service: @Model.Service.Name</h5>
+                    <p class="card-text">@Model.Service.Description</p>
+                    <p><strong>Type:</strong> @Model.Service.Type</p>
+                    <p><strong>Price:</strong> <span class="h5 text-primary">$@Model.Service.Price</span></p>
+                </div>
+            </div>
+
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Input.Name" class="form-label">Full Name</label>
+                        <input asp-for="Input.Name" class="form-control" placeholder="Your full name" />
+                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Input.Email" class="form-label">Email Address</label>
+                        <input asp-for="Input.Email" class="form-control" placeholder="your.email@example.com" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Input.PhoneNumber" class="form-label">Phone Number</label>
+                        <input asp-for="Input.PhoneNumber" class="form-control" placeholder="+1 (555) 123-4567" />
+                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Input.PaymentMethod" class="form-label">Preferred Payment Method</label>
+                        <select asp-for="Input.PaymentMethod" class="form-select">
+                            <option value="">Select payment method...</option>
+                            <option value="PayPal">PayPal</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Cryptocurrency">Cryptocurrency</option>
+                        </select>
+                        <span asp-validation-for="Input.PaymentMethod" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label asp-for="Input.ProjectDetails" class="form-label">Project Details</label>
+                    <textarea asp-for="Input.ProjectDetails" class="form-control" rows="4" placeholder="Please provide specific details about your project requirements..."></textarea>
+                    <div class="form-text">The more details you provide, the better I can tailor the service to your needs.</div>
+                </div>
+                
+                <div class="alert alert-info">
+                    <h6>What happens next?</h6>
+                    <ol class="mb-0">
+                        <li>I'll review your request and contact you within 24 hours</li>
+                        <li>We'll discuss project details and finalize requirements</li>
+                        <li>I'll send you a secure payment link</li>
+                        <li>Once payment is confirmed, work begins immediately</li>
+                    </ol>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-lg">Submit Payment Request</button>
+                <a asp-page="./Details" asp-route-id="@Model.Service.Id" class="btn btn-outline-secondary btn-lg ms-2">Back to Service</a>
+            </form>
+        }
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Payment Process</h5>
+                <hr>
+                <h6>Secure & Trusted</h6>
+                <p class="small">All payments are processed through secure, industry-standard payment gateways.</p>
+                
+                <h6>Money-Back Guarantee</h6>
+                <p class="small">If you're not satisfied with the final result, I offer a full refund within 30 days.</p>
+                
+                <h6>Flexible Payment Options</h6>
+                <ul class="small mb-0">
+                    <li>PayPal (most popular)</li>
+                    <li>Bank transfer</li>
+                    <li>Credit/Debit cards</li>
+                    <li>Cryptocurrency</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-body text-center">
+                <h6>Questions?</h6>
+                <p class="small">Need clarification before requesting payment?</p>
+                <a asp-page="/Contact" class="btn btn-outline-primary btn-sm">Contact Me First</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

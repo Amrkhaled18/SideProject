@@ -1,0 +1,65 @@
+@page
+@model Freelancing.Pages.Services.DetailsModel
+@{
+    ViewData["Title"] = Model.Service.Name;
+}
+
+<div class="row">
+    <div class="col-md-8">
+        @if (!string.IsNullOrEmpty(Model.Service.ImageUrl))
+        {
+            <img src="@Model.Service.ImageUrl" class="img-fluid rounded mb-4" alt="@Model.Service.Name">
+        }
+        else
+        {
+            <div class="bg-light d-flex align-items-center justify-content-center rounded mb-4" style="height: 400px;">
+                <span class="text-muted h3">@Model.Service.Type</span>
+            </div>
+        }
+        
+        <h1>@Model.Service.Name</h1>
+        <p class="lead text-muted">@Model.Service.Type</p>
+        
+        <div class="mt-4">
+            <h4>Description</h4>
+            <p>@Model.Service.Description</p>
+        </div>
+        
+        <div class="mt-4">
+            <h4>What's Included</h4>
+            <ul>
+                <li>Professional consultation</li>
+                <li>Custom development/design</li>
+                <li>Testing and quality assurance</li>
+                <li>Documentation and support</li>
+                <li>Revisions as needed</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Service Details</h5>
+                <hr>
+                <p><strong>Type:</strong> @Model.Service.Type</p>
+                <p><strong>Starting Price:</strong> <span class="h4 text-primary">$@Model.Service.Price</span></p>
+                <p><strong>Created:</strong> @Model.Service.CreatedAt.ToString("MMM dd, yyyy")</p>
+                
+                <hr>
+                
+                <div class="d-grid gap-2">
+                    <a asp-page="./RequestPayment" asp-route-id="@Model.Service.Id" class="btn btn-success btn-lg">
+                        Order Now - Pay Online
+                    </a>
+                    <a asp-page="/Contact" asp-route-service="@Model.Service.Name" class="btn btn-primary">
+                        Get Custom Quote
+                    </a>
+                    <a asp-page="./Index" class="btn btn-outline-secondary">
+                        Back to Services
+                    </a>
+                </div>
+                
+                <div class="mt-4">
+                    <h6>Need More Information?</h6>
+                    <p class="small text

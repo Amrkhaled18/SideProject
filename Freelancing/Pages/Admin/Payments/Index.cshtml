@@ -1,0 +1,88 @@
+@page
+@model Freelancing.Pages.Admin.Payments.IndexModel
+@{
+    ViewData["Title"] = "Payment Requests";
+    Layout = "_AdminLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Payment Requests</h1>
+    <div>
+        <span class="badge bg-primary me-2">Total: @Model.Payments.Count</span>
+        <span class="badge bg-success me-2">Completed: @Model.Payments.Count(p => p.Status == "Completed")</span>
+        <span class="badge bg-warning">Pending: @Model.Payments.Count(p => p.Status == "Pending")</span>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        @if (Model.Payments.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Payment Method</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var payment in Model.Payments)
+                        {
+                            <tr>
+                                <td><strong>#@payment.Id</strong></td>
+                                <td>
+                                    <div>
+                                        <strong>@payment.User.Name</strong><br>
+                                        <small class="text-muted">@payment.User.Email</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <strong>@payment.Service.Name</strong><br>
+                                        <small class="text-muted">@payment.Service.Type</small>
+                                    </div>
+                                </td>
+                                <td><span class="fw-bold text-success">$@payment.Amount</span></td>
+                                <td>
+                                    <span class="badge @(payment.Status == "Completed" ? "bg-success" : payment.Status == "Pending" ? "bg-warning" : payment.Status == "Failed" ? "bg-danger" : "bg-secondary")">
+                                        @payment.Status
+                                    </span>
+                                </td>
+                                <td>@payment.PaymentMethod</td>
+                                <td>@payment.PaymentDate.ToString("MMM dd, yyyy 'at' h:mm tt")</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-page="./Details" asp-route-id="@payment.Id" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        @if (payment.Status == "Pending")
+                                        {
+                                            <a asp-page="./UpdateStatus" asp-route-id="@payment.Id" class="btn btn-sm btn-outline-warning">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <i class="fas fa-credit-card fa-3x text-muted mb-3"></i>
+                <h4 class="text-muted">No payment requests yet</h4>
+                <p class="text-muted">Payment requests will appear here when customers start ordering services.</p>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin Panel</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="admin-sidebar">
+        <div class="p-4">
+            <h5 class="text-white fw-bold">
+                <i class="fas fa-shield-alt me-2"></i>
+                Admin Panel
+            </h5>
+            <small class="text-white-50">Freelancing Portfolio</small>
+        </div>
+        
+        <nav class="nav flex-column">
+            <a asp-page="/Admin/Index" class="admin-nav-link">
+                <i class="fas fa-tachometer-alt me-2"></i>
+                Dashboard
+            </a>
+            <a asp-page="/Admin/Services/Index" class="admin-nav-link">
+                <i class="fas fa-briefcase me-2"></i>
+                Services
+            </a>
+            <a asp-page="/Admin/Payments/Index" class="admin-nav-link">
+                <i class="fas fa-credit-card me-2"></i>
+                Payments
+            </a>
+            <a asp-page="/Admin/Users/Index" class="admin-nav-link">
+                <i class="fas fa-users me-2"></i>
+                Users
+            </a>
+            
+            <hr class="text-white-50 mx-3 my-3">
+            
+            <a asp-page="/Index" class="admin-nav-link" target="_blank">
+                <i class="fas fa-external-link-alt me-2"></i>
+                View Website
+            </a>
+            <a asp-page="/Account/Logout" class="admin-nav-link">
+                <i class="fas fa-sign-out-alt me-2"></i>
+                Logout
+            </a>
+        </nav>
+    </div>
+    
+    <div class="admin-main-content">
+        <div class="admin-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <div class="welcome-section">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                        <i class="fas fa-user-shield fa-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="greeting-text">
+                                        @{
+                                            var hour = DateTime.Now.Hour;
+                                            var greeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
+                                        }
+                                        @greeting, @(User.Identity?.Name ?? "Admin")! ??
+                                    </div>
+                                    <div class="text-muted">
+                                        <i class="fas fa-calendar-alt me-2"></i>
+                                        @DateTime.Now.ToString("dddd, MMMM dd, yyyy")
+                                    </div>
+                                    <div class="mt-2">
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-circle me-1" style="font-size: 0.5rem;"></i>
+                                            Admin Access Active
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-end">
+                        <span class="time-badge">
+                            <i class="fas fa-clock me-2"></i>
+                            @DateTime.Now.ToString("h:mm tt")
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="admin-content">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.admin-nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+    
+    <style>
+        .admin-sidebar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .admin-nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            display: block;
+            border-radius: 8px;
+            margin: 0.25rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-nav-link:hover,
+        .admin-nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
+            border-bottom: 3px solid #667eea;
+            padding: 1.5rem 0;
+        }
+        
+        .admin-content {
+            background: #f8f9fa;
+            min-height: calc(100vh - 120px);
+            padding: 2rem 0;
+        }
+        
+        .welcome-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-left: 4px solid #667eea;
+        }
+        
+        .greeting-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+        
+        .time-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 500;
+        }
+
+        .admin-main-content {
+            margin-left: 250px;
+        }
+    </style>
+</body>
+</html>

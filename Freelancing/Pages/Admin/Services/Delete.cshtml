@@ -1,0 +1,78 @@
+@page
+@model Freelancing.Pages.Admin.Services.DeleteModel
+@{
+    ViewData["Title"] = "Delete Service";
+}
+
+<h1>Delete Service</h1>
+
+<div class="alert alert-danger">
+    <h4>Are you sure you want to delete this service?</h4>
+    <p>This action cannot be undone. All associated data will be permanently removed.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">@Model.Service.Name</h5>
+            </div>
+            <div class="card-body">
+                @if (!string.IsNullOrEmpty(Model.Service.ImageUrl))
+                {
+                    <img src="@Model.Service.ImageUrl" class="img-fluid rounded mb-3" alt="@Model.Service.Name" style="max-height: 200px;">
+                }
+                
+                <dl class="row">
+                    <dt class="col-sm-3">Service Type:</dt>
+                    <dd class="col-sm-9">@Model.Service.Type</dd>
+                    
+                    <dt class="col-sm-3">Description:</dt>
+                    <dd class="col-sm-9">@Model.Service.Description</dd>
+                    
+                    <dt class="col-sm-3">Price:</dt>
+                    <dd class="col-sm-9"><span class="h5 text-primary">$@Model.Service.Price</span></dd>
+                    
+                    <dt class="col-sm-3">Created:</dt>
+                    <dd class="col-sm-9">@Model.Service.CreatedAt.ToString("MMMM dd, yyyy")</dd>
+                    
+                    <dt class="col-sm-3">Status:</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge @(Model.Service.IsActive ? "bg-success" : "bg-secondary")">
+                            @(Model.Service.IsActive ? "Active" : "Inactive")
+                        </span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        
+        <form method="post" class="mt-3">
+            <input type="hidden" asp-for="Service.Id" />
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash"></i> Yes, Delete This Service
+            </button>
+            <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card border-warning">
+            <div class="card-body">
+                <h6 class="card-title text-warning">
+                    <i class="fas fa-exclamation-triangle"></i> Warning
+                </h6>
+                <p class="card-text small">
+                    Deleting this service will:
+                </p>
+                <ul class="small">
+                    <li>Remove it from your public service listings</li>
+                    <li>Make it unavailable for new orders</li>
+                    <li>Permanently delete all service data</li>
+                </ul>
+                <p class="small text-muted">
+                    <strong>Note:</strong> Existing payment records referencing this service will be preserved for historical purposes.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

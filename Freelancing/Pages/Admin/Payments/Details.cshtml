@@ -1,0 +1,123 @@
+@page
+@model Freelancing.Pages.Admin.Payments.DetailsModel
+@{
+    ViewData["Title"] = "Payment Request Details";
+}
+
+<h1>Payment Request Details</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Payment Request #@Model.Payment.Id</h5>
+                <span class="badge @(Model.Payment.Status == "Completed" ? "bg-success" : Model.Payment.Status == "Pending" ? "bg-warning" : "bg-danger") fs-6">
+                    @Model.Payment.Status
+                </span>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title">Service Information</h6>
+                <dl class="row">
+                    <dt class="col-sm-4">Service:</dt>
+                    <dd class="col-sm-8">@Model.Payment.Service.Name</dd>
+                    
+                    <dt class="col-sm-4">Service Type:</dt>
+                    <dd class="col-sm-8">@Model.Payment.Service.Type</dd>
+                    
+                    <dt class="col-sm-4">Amount:</dt>
+                    <dd class="col-sm-8"><span class="h5 text-success">$@Model.Payment.Amount</span></dd>
+                </dl>
+                
+                <hr>
+                
+                <h6 class="card-title">Customer Information</h6>
+                <dl class="row">
+                    <dt class="col-sm-4">Name:</dt>
+                    <dd class="col-sm-8">@Model.Payment.User.Name</dd>
+                    
+                    <dt class="col-sm-4">Email:</dt>
+                    <dd class="col-sm-8">
+                        <a href="mailto:@Model.Payment.User.Email">@Model.Payment.User.Email</a>
+                    </dd>
+                    
+                    <dt class="col-sm-4">Phone:</dt>
+                    <dd class="col-sm-8">
+                        <a href="tel:@Model.Payment.User.PhoneNumber">@Model.Payment.User.PhoneNumber</a>
+                    </dd>
+                </dl>
+                
+                <hr>
+                
+                <h6 class="card-title">Payment Information</h6>
+                <dl class="row">
+                    <dt class="col-sm-4">Request Date:</dt>
+                    <dd class="col-sm-8">@Model.Payment.PaymentDate.ToString("MMMM dd, yyyy 'at' h:mm tt")</dd>
+                    
+                    <dt class="col-sm-4">Payment Method:</dt>
+                    <dd class="col-sm-8">@Model.Payment.PaymentMethod</dd>
+                    
+                    <dt class="col-sm-4">Status:</dt>
+                    <dd class="col-sm-8">
+                        <span class="badge @(Model.Payment.Status == "Completed" ? "bg-success" : Model.Payment.Status == "Pending" ? "bg-warning" : "bg-danger")">
+                            @Model.Payment.Status
+                        </span>
+                    </dd>
+                </dl>
+                
+                <hr>
+                
+                <h6 class="card-title">Project Details</h6>
+                <p class="card-text">@Model.Payment.Info</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Quick Actions</h5>
+                <div class="d-grid gap-2">
+                    <a href="mailto:@Model.Payment.User.Email?subject=Payment Request #@Model.Payment.Id - @Model.Payment.Service.Name" class="btn btn-primary">
+                        <i class="fas fa-envelope"></i> Email Customer
+                    </a>
+                    <a href="tel:@Model.Payment.User.PhoneNumber" class="btn btn-success">
+                        <i class="fas fa-phone"></i> Call Customer
+                    </a>
+                    @if (Model.Payment.Status == "Pending")
+                    {
+                        <a asp-page="./UpdateStatus" asp-route-id="@Model.Payment.Id" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Update Status
+                        </a>
+                    }
+                    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6 class="card-title">Payment Timeline</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <small class="text-muted">@Model.Payment.PaymentDate.ToString("MMM dd, yyyy h:mm tt")</small><br>
+                        <span class="badge bg-info">Request Submitted</span>
+                    </li>
+                    @if (Model.Payment.Status == "Completed")
+                    {
+                        <li class="mb-2">
+                            <small class="text-muted">Payment processed</small><br>
+                            <span class="badge bg-success">Completed</span>
+                        </li>
+                    }
+                    else if (Model.Payment.Status == "Failed")
+                    {
+                        <li class="mb-2">
+                            <small class="text-muted">Payment failed</small><br>
+                            <span class="badge bg-danger">Failed</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

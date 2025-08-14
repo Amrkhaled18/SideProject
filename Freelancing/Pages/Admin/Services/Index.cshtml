@@ -1,0 +1,70 @@
+@page
+@model Freelancing.Pages.Admin.Services.IndexModel
+@{
+    ViewData["Title"] = "Manage Services";
+    Layout = "_AdminLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Manage Services</h1>
+    <a asp-page="Create" class="btn btn-primary">Create New Service</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        @if (Model.Service.Any())
+        {
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var service in Model.Service)
+                        {
+                            <tr>
+                                <td>@service.Name</td>
+                                <td>@service.Type</td>
+                                <td>@(service.Description.Length > 50 ? service.Description.Substring(0, 50) + "..." : service.Description)</td>
+                                <td>$@service.Price</td>
+                                <td>
+                                    <span class="badge @(service.IsActive ? "bg-success" : "bg-secondary")">
+                                        @(service.IsActive ? "Active" : "Inactive")
+                                    </span>
+                                </td>
+                                <td>@service.CreatedAt.ToString("MMM dd, yyyy")</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-page="./Details" asp-route-id="@service.Id" class="btn btn-sm btn-outline-info">Details</a>
+                                        <a asp-page="./Edit" asp-route-id="@service.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                                        <a asp-page="./Delete" asp-route-id="@service.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-4">
+                <h4>No services found</h4>
+                <p class="text-muted">Get started by creating your first service.</p>
+                <a asp-page="Create" class="btn btn-primary">Create New Service</a>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-page="../Index" class="btn btn-secondary">Back to Dashboard</a>
+</div>
