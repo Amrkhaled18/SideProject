@@ -1,10 +1,10 @@
-# ?? Freelancing Portfolio
+# 💼 Freelancing Portfolio
 
 A modern freelancing portfolio and business management system built with **ASP.NET Core 8** and **Razor Pages**.
 
 ![.NET 8](https://img.shields.io/badge/.NET-8.0-purple) ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.0-purple) ![SQL Server](https://img.shields.io/badge/SQL%20Server-2019+-orange)
 
-## ? Features
+## ✨ Features
 
 **Public Website:**
 - Professional service showcase with pricing
@@ -19,7 +19,7 @@ A modern freelancing portfolio and business management system built with **ASP.N
 - Business analytics
 - Secure authentication
 
-## ??? Tech Stack
+## 🛠️ Tech Stack
 
 - **ASP.NET Core 8.0** - Web framework
 - **Razor Pages** - Page-focused architecture
@@ -28,7 +28,7 @@ A modern freelancing portfolio and business management system built with **ASP.N
 - **Bootstrap 5** - CSS framework
 - **jQuery** - JavaScript library
 
-## ?? Quick Start
+## 🚀 Quick Start
 
 1. **Prerequisites:** .NET 8 SDK, SQL Server
 2. **Setup:**git clone <repo-url>
@@ -40,17 +40,17 @@ dotnet ef database update
    - Admin: `https://localhost:7xxx/Account/Login`
    - Login: `admin@freelancing.com` / `admin123`
 
-## ?? Project Structure
+## 📁 Project Structure
 Freelancing/
-+-- Models/           # Data models (User, Service, Payment)
-+-- Pages/            # Razor Pages
-¦   +-- Admin/        # Admin dashboard
-¦   +-- Services/     # Public service pages
-¦   +-- Account/      # Authentication
-+-- Migrations/       # Database migrations
-+-- wwwroot/         # Static files (CSS, JS)
-+-- deploy.ps1       # Deployment script
-## ?? Deployment
+├── Models/           # Data models (User, Service, Payment)
+├── Pages/            # Razor Pages
+│   ├── Admin/        # Admin dashboard
+│   ├── Services/     # Public service pages
+│   └── Account/      # Authentication
+├── Migrations/       # Database migrations
+├── wwwroot/         # Static files (CSS, JS)
+└── deploy.ps1       # Deployment script
+## 🌐 Deployment
 
 **Quick Deploy:**.\deploy.ps1
 **Hosting Options:**
@@ -58,7 +58,7 @@ Freelancing/
 - **Azure App Service** ($20-35/month) - Professional scaling
 - **VPS** ($10-50/month) - Full control
 
-## ?? Security
+## 🔒 Security
 
 - HTTPS enforcement
 - Secure cookies
@@ -66,7 +66,7 @@ Freelancing/
 - Input validation
 - SQL injection protection
 
-## ?? Key Files
+## 🎯 Key Files
 
 - `Program.cs` - App configuration
 - `appsettings.json` - Database connection
@@ -74,7 +74,7 @@ Freelancing/
 - `Pages/Index.cshtml` - Homepage
 - `Models/FreelancingDbContext.cs` - Database context
 
-## ?? Customization
+## 📝 Customization
 
 1. **Change admin password** in `Login.cshtml.cs`
 2. **Update branding** in `_Layout.cshtml` and `site.css`
@@ -83,4 +83,4 @@ Freelancing/
 
 ---
 
-**Ready to launch your freelancing business?** ??
+**Ready to launch your freelancing business?** 🚀
